@@ -13,6 +13,7 @@
 		250D0A3223A366C5001E1935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 250D0A3123A366C5001E1935 /* Assets.xcassets */; };
 		250D0A3523A366C5001E1935 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 250D0A3423A366C5001E1935 /* Preview Assets.xcassets */; };
 		250D0A3823A366C5001E1935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250D0A3623A366C5001E1935 /* LaunchScreen.storyboard */; };
+		250D0A4023A59E2D001E1935 /* MultiplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D0A3F23A59E2D001E1935 /* MultiplicationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		250D0A3423A366C5001E1935 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		250D0A3723A366C5001E1935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		250D0A3923A366C5001E1935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		250D0A3F23A59E2D001E1935 /* MultiplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				250D0A2B23A366BD001E1935 /* AppDelegate.swift */,
 				250D0A2D23A366BD001E1935 /* SceneDelegate.swift */,
 				250D0A2F23A366BD001E1935 /* ContentView.swift */,
+				250D0A3F23A59E2D001E1935 /* MultiplicationView.swift */,
 				250D0A3123A366C5001E1935 /* Assets.xcassets */,
 				250D0A3623A366C5001E1935 /* LaunchScreen.storyboard */,
 				250D0A3923A366C5001E1935 /* Info.plist */,
@@ -146,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				250D0A4023A59E2D001E1935 /* MultiplicationView.swift in Sources */,
 				250D0A2C23A366BD001E1935 /* AppDelegate.swift in Sources */,
 				250D0A2E23A366BD001E1935 /* SceneDelegate.swift in Sources */,
 				250D0A3023A366BD001E1935 /* ContentView.swift in Sources */,
