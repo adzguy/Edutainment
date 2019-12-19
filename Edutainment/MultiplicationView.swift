@@ -8,128 +8,134 @@
 
 import SwiftUI
 
-struct Questions {
-    let questions = ["1 x 1", "1 x 2", "1*3", "1*4", "1*5", "1*6", "1*7", "1*8", "1*9", "1*10", "1*11", "1*12",
-        "2*1", "2*2", "2*3", "2*4", "2*5", "2*6", "2*7", "2*8", "2*9", "2*10", "2*11", "2*12",
-        "3*1", "3*2", "3*3", "3*4", "3*5", "3*6", "3*7", "3*8", "3*9", "3*10", "3*11", "3*12",
-    ]
-}
-
-//Custom Modifier
-struct ButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-        .frame(width: 75, height: 75)
-        .background(Color(#colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)))
-        .clipShape(Circle())
-        
-    }
-}
-extension View {
-    func buttonStyle() -> some View {
-        self.modifier(ButtonModifier())
-    }
+class Multiplications: ObservableObject {
+    @Published var questionAmount = ""
 }
 
 struct MultiplicationView: View {
     
     @State private var typedNumber = ""
-    @State private var correctAnswer = 0
+    @State private var correctAnswer = ""
     @State private var score = 0
     @State private var isShowingScore = false
     @State private var currentQuestion = 1
+    @State private var goBackActive = false
+    
+    let tables = [1,2,3,4,5,6,7,8,9,10,11,12]
+    @State private var randomInt = Int.random(in: 1..<13)
+    @State private var selectedTable = 5
+    @State private var questionAmount = 1
+    let questionsAsked = ["5","10","20","All"]
+    
     
     var body: some View {
         
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)),Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
-            
-            VStack {
-
+        NavigationView {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)),Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
+                    
                 VStack {
-                    
-                    Text("DisplayQuestion")
-                        .padding()
-                    Text(" = ")
-                        .font(.largeTitle)
+                    VStack {
+                        Text("\(tables[selectedTable]) X \(randomInt)")
+                            .scaledFont(name: "Chalkduster", size: 50)
+                        
+                        Text(" = ")
+                            .scaledFont(name: "Chalkduster", size: 50)
 
-                    TextField("", text: $typedNumber )
-                        .frame(width: 200, height: 50)
-                        .border(Color.gray, width: 1)
-                        .multilineTextAlignment(.center)
-                        .font(.largeTitle)
-                }
-                .padding()
-                
-                HStack(spacing: 20) {
-                    createDigit("1")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    createDigit("2")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    createDigit("3")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                }
-                .padding()
-                
-                HStack(spacing: 20) {
-                    createDigit("4")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    createDigit("5")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    createDigit("6")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                }
-                .padding()
-                
-                HStack(spacing: 20) {
-                    createDigit("7")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    createDigit("8")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    createDigit("9")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                }
-                .padding()
-                
-                HStack(spacing: 20) {
-                    
-                    Button(action: {
-                        self.clearTapped()
-                    })
-                    {
-                        Text("Clear")
-                            .fontWeight(.heavy)
-                            .buttonStyle()
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 0.9447464347, blue: 0, alpha: 1)))
+                        TextField("", text: $typedNumber )
+                            .frame(width: 200, height: 50)
+                            .border(Color.gray, width: 1)
+                            .multilineTextAlignment(.center)
+                            .scaledFont(name: "Chalkduster", size: 50)
+                    }
+                    .padding()
+                        
+                    VStack {
+                        HStack(spacing: 15) {
+                            createDigit("1")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            createDigit("2")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            createDigit("3")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                        }
+                        .padding(.bottom, 15)
+                        
+                        HStack(spacing: 15) {
+                            createDigit("4")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            createDigit("5")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            createDigit("6")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                        }
+                        .padding(.bottom, 15)
+                        
+                        HStack(spacing: 15) {
+                            createDigit("7")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            createDigit("8")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            createDigit("9")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                        }
+                        .padding(.bottom, 15)
+                        
+                        HStack(spacing: 15) {
+                            
+                            Button(action: {
+                                self.clearTapped()
+                            })
+                            {
+                                Text("Clear")
+                                    .fontWeight(.heavy)
+                                    .buttonStyle()
+                                    .foregroundColor(Color(#colorLiteral(red: 0.9258882705, green: 0.8120184075, blue: 0, alpha: 1)))
+                            }
+                            
+                            createDigit("0")
+                                .buttonStyle()
+                                .font(.largeTitle)
+                            
+                            Button(action: {
+                                self.enterTapped()
+                            })
+                            {
+                                Text("Enter")
+                                    .fontWeight(.heavy)
+                                    .buttonStyle()
+                                    .foregroundColor(Color(#colorLiteral(red: 0, green: 1, blue: 0, alpha: 1)))
+                            }
+                        }
                     }
                     
-                    createDigit("0")
-                        .buttonStyle()
-                        .font(.largeTitle)
-                    
-                    Button(action: {
-                        self.enterTapped()
-                    })
-                    {
-                        Text("Enter")
-                            .fontWeight(.heavy)
-                            .buttonStyle()
-                            .foregroundColor(Color(#colorLiteral(red: 0, green: 1, blue: 0, alpha: 1)))
+                    VStack {
+                        Text("Q:  \(currentQuestion)/\(questionsAsked[questionAmount])")
+                            .foregroundColor(.orange)
+                            .font(.largeTitle)
+                            .padding(.top, 50)
+                        
                     }
+                    Spacer()
                 }
-                Text("Q:  \(currentQuestion)/\(ContentView().questionAmount)")
-                    .foregroundColor(.orange)
-                    .font(.largeTitle)
-                    .padding(.top, 50)
+
+            }.navigationBarItems(leading: Button(action: {
+                self.goBackActive = true
+            })
+            {
+                Text("Back")
+            })
+            .alert(isPresented: $isShowingScore) {
+                    Alert(title: Text("Score: \(score)/\(questionsAsked[questionAmount])"), message: Text("Keep it up!"), dismissButton: .default(Text("Start Over"), action: askQuestion))
             }
         }
     }
@@ -156,6 +162,35 @@ struct MultiplicationView: View {
         }
         currentQuestion += 1
         typedNumber = ""
+        randomInt = Int.random(in: 1..<13)
+        
+        if Int(questionsAsked[questionAmount]) == currentQuestion {
+            isShowingScore = true
+        }
+        
+    }
+    func askQuestion() {
+        isShowingScore = false
+        currentQuestion = 1
+        
+    }
+}
+
+//Custom Modifier
+struct ButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+        .frame(width: 75, height: 75)
+            .background(Color.white)
+        .clipShape(Circle())
+            .shadow(color: .gray, radius: 10, x: 10, y: 10)
+            .scaleEffect(1)
+        
+    }
+}
+extension View {
+    func buttonStyle() -> some View {
+        self.modifier(ButtonModifier())
     }
 }
 

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     
     @State private var active = false
@@ -17,64 +18,66 @@ struct ContentView: View {
     let questionsAsked = ["5", "10", "20", "ALL"]
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                LinearGradient(gradient: Gradient(colors: [.purple, .blue]), startPoint: .topTrailing, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    VStack(alignment: .center, spacing: 10) {
-                        Text("Pick multiplication table to practice!")
-                            .scaledFont(name: "Chalkduster", size: 18)
-                            .foregroundColor(.white)
-                        
-                        Picker(selection: $selectedTable, label: Text("pick")) {
-                            ForEach(0..<tables.count) {
-                                Text("\(self.tables[$0])")
-                                .scaledFont(name: "Herculanum", size: 14)
-                            }
+        
+        ZStack {
+            VStack {
+                Form {
+                     HStack(alignment: .center) {
+                         Image("narwhal")
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 70, height: 70)
+                         Text("Edutainment")
+                             .multilineTextAlignment(.center)
+                             .scaledFont(name: "Chalkduster", size: 30)
+                         Image("narwhal")
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 70, height: 70)
+                     }
 
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.horizontal, 10)
+                     
+                     Section {
+                         Text("Pick multiplication table!").multilineTextAlignment(.center).scaledFont(name: "Chalkduster", size: 18)
+                         Picker(selection: $selectedTable, label: Text("pick")) {
+                             ForEach(0..<tables.count) {
+                                 Text("\(self.tables[$0])")
+                             }
+
+                         }
+                         .pickerStyle(SegmentedPickerStyle())
+                     }
+
+                     Section {
+                         Text("How many questions you want to be asked?").scaledFont(name: "Chalkduster", size: 18)
+                         Picker(selection: $questionAmount, label: Text("pick")) {
+                             ForEach(0..<questionsAsked.count) {
+                                 Text("\(self.questionsAsked[$0])")
+                                 .scaledFont(name: "Herculanum", size: 18)
+                             }
+                         }
+                         .pickerStyle(SegmentedPickerStyle())
 
                     }
-                    .padding(.top, 60)
-                    .padding(.bottom, 60)
-                    VStack(spacing: 10){
-                        Text("How many questions you want to be asked?")
-                            .scaledFont(name: "Chalkduster", size: 20)
-                            .foregroundColor(.white)
-                            .padding(5)
-                        Picker(selection: $questionAmount, label: Text("pick")) {
-                            ForEach(0..<questionsAsked.count) {
-                                Text("\(self.questionsAsked[$0])")
-                                .scaledFont(name: "Herculanum", size: 18)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.horizontal, 10)
+                }
+            }
+            
+            Button(action: {
+                self.active = true
 
-
-                    }
-                    .padding(.bottom, 80)
-                    
-                    Button(action: {
-                        self.active.toggle()
-                    })
-                    {
-                        NavigationLink(destination: MultiplicationView()) {
-                            Text("Go")
-                                .frame(width: 100, height: 50)
-                                .foregroundColor(.green)
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: CGFloat(10.0)))
-                        }
-                        
-                    }
-                    .animation(.default)
-                    Spacer()
-   
-                }.navigationBarTitle("Edutainment")
+            })
+            {
+                Text("Go")
+                    .frame(width: 100, height: 40)
+                    .foregroundColor(.green)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: CGFloat(10.0)))
+                    .shadow(color: .gray, radius: 10, x: 10, y: 10)
+            }
+    
+        
+            if active {
+                MultiplicationView()
             }
         }
     }
